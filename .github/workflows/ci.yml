@@ -41,7 +41,8 @@ jobs:
           SHA: ${{ github.sha }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
-          FULL="${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
+          USER=$(echo "$DOCKERHUB_USERNAME" | tr -d '[:space:]')
+          FULL="${USER}/${IMAGE_NAME}"
           docker tag "${IMAGE_NAME}:${SHA}" "${FULL}:${SHA}"
           docker tag "${IMAGE_NAME}:${SHA}" "${FULL}:latest"
           docker push "${FULL}:${SHA}"
